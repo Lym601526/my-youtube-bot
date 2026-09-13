@@ -4,7 +4,7 @@ import google.generativeai as genai
 api_key = os.environ["GEMINI_API_KEY"]
 genai.configure(api_key=api_key)
 
-model = genai.GenerativeModel("gemini-2.0-flash")
+model = genai.GenerativeModel("gemini-3.6-flash")
 
 prompt = """
 اقترح فكرة فيديو يوتيوب قصير (شورت) في مجال المعلومات العامة والحقائق المثيرة.
