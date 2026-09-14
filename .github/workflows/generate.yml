@@ -16,6 +16,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - run: python scripts/generate_voice.py
+      - run: python scripts/generate_captions.py
       - run: python scripts/fetch_footage.py
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
