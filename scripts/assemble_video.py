@@ -36,13 +36,13 @@ def main():
 
         subprocess.run([
             "ffmpeg", "-y",
+            "-stream_loop", "-1",
             "-i", video_in,
             "-i", audio_in,
             "-t", str(audio_duration),
             "-vf", vf_filter,
             "-c:v", "libx264", "-c:a", "aac",
             "-map", "0:v:0", "-map", "1:a:0",
-            "-shortest",
             clip_out
         ], check=True)
 
