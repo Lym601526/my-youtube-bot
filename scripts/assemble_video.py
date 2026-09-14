@@ -21,6 +21,7 @@ def main():
         idx = f"{i+1:02d}"
         video_in = f"output/footage/scene_{idx}.mp4"
         audio_in = f"output/audio/scene_{idx}.mp3"
+        caption_in = f"output/captions/scene_{idx}.ass"
         clip_out = f"output/clips/clip_{idx}.mp4"
 
         if not os.path.exists(video_in) or not os.path.exists(audio_in):
@@ -29,13 +30,16 @@ def main():
 
         audio_duration = get_duration(audio_in)
 
-        # يقص الفيديو بمدة الصوت بالظبط، يلزق الصوت، ويحول المقاس لصيغة شورتس (1080x1920)
+        vf_filter = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+        if os.path.exists(caption_in):
+            vf_filter += f",subtitles={caption_in}"
+
         subprocess.run([
             "ffmpeg", "-y",
             "-i", video_in,
             "-i", audio_in,
             "-t", str(audio_duration),
-            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920",
+            "-vf", vf_filter,
             "-c:v", "libx264", "-c:a", "aac",
             "-map", "0:v:0", "-map", "1:a:0",
             "-shortest",
@@ -45,7 +49,6 @@ def main():
         clip_list.append(clip_out)
         print(f"تم تجميع: {clip_out}")
 
-    # كتابة قائمة المقاطع لدمجها في فيديو واحد
     with open("output/clips/list.txt", "w") as f:
         for clip in clip_list:
             f.write(f"file '{os.path.basename(clip)}'\n")
