@@ -2,3 +2,4 @@ google-generativeai
 edge-tts
 requests
 faster-whisper
+huggingface_hub
