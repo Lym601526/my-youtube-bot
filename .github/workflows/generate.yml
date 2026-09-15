@@ -21,7 +21,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - run: python scripts/generate_voice.py
       - run: python scripts/generate_captions.py
-           - run: python scripts/generate_ai_footage.py
+      - run: python scripts/generate_ai_footage.py
         env:
           HF_API_TOKEN: ${{ secrets.HF_API_TOKEN }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
